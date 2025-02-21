@@ -222,8 +222,6 @@ PVOID GetProcAddressRemoteN(HANDLE hProcess, PBYTE dllBase, const char* function
             DWORD functionRVA = addressOfFunctions[ordinal];
             PVOID procAddress = (PBYTE)dllBase + functionRVA;
 
-            printf("[+] Found function: %s at 0x%p\n", currentFunctionName, procAddress);
-
             // Clean up
             delete[] addressOfFunctions;
             delete[] addressOfNames;
@@ -341,9 +339,9 @@ int main(int argc, char* argv[]) {
                 // Get the address of the original NT function
                 PVOID originalFunction = GetProcAddressRemoteN(hProcess, (PBYTE)ntdllBase, functionName.c_str());
                 if (originalFunction) {
-                    printf("[+] %s found at 0x%p\n", functionName.c_str(), originalFunction);
+                    printf("[+] Found %s at 0x%p\n", functionName.c_str(), originalFunction);
                 } else {
-                    printf("[!] %s not found\n", functionName.c_str());
+                    printf("[!] Not found %s\n", functionName.c_str());
                     continue;
                 }
 
@@ -351,9 +349,9 @@ int main(int argc, char* argv[]) {
                 std::string hookedFunctionName = functionName + "N";
                 PVOID hookedFunction = GetProcAddressRemoteN(hProcess, (PBYTE)ntdllNBase, hookedFunctionName.c_str());
                 if (hookedFunction) {
-                    printf("[+] %s found at 0x%p\n", hookedFunctionName.c_str(), hookedFunction);
+                    printf("[+] Found %s at 0x%p\n", hookedFunctionName.c_str(), hookedFunction);
                 } else {
-                    printf("[!] %s not found\n", hookedFunctionName.c_str());
+                    printf("[!] Not found %s\n", hookedFunctionName.c_str());
                     continue;
                 }
 
