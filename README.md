@@ -1,6 +1,6 @@
 <div align="center">
 
-<h1 align="center" style="font-family: 'Segoe UI', sans-serif; font-size: 48px;">
+<h1 align="center" style="font-family: 'Segoe UI', sans-serif; font-size: 60px;">
   HookNt
 </h1>
 
