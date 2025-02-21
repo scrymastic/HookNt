@@ -72,16 +72,6 @@ hookNt.exe test.exe NtWriteFile NtCreateFile
 ```
 ![Example output showing hooked NtWriteFile calls](./imgs/image-1.png)
 
-## Code Overview
-
-### Hooking Logic
-
-The hooking logic is implemented in the `hookNt.cpp` file, where the application creates a suspended process, injects the DLL, and patches the NT functions.
-
-### DLL Exported Functions
-
-The `ntdllN.cpp` file defines the exported functions for the DLL, which are the hooked versions of the NT functions.
-
 ### Limitations
 - Currently only supports x64 architecture
 - Target process must have a console window/terminal
