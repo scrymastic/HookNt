@@ -85,6 +85,7 @@ PVOID ReflectiveDLLInject(HANDLE hProcess, PBYTE lpDllBuffer) {
     }
 
     // Perform loading in current process is easier, instead of muiltiple Read/Write remote ProcessMemory
+    // Step 3: Allocate memory for the DLL in the current process.
     PBYTE localDllBase = (PBYTE)VirtualAlloc(NULL, dllImageSize, MEM_COMMIT | MEM_RESERVE, PAGE_READWRITE);
     if (!localDllBase) {
         printf("[!] VirtualAlloc failed: %d\n", GetLastError());

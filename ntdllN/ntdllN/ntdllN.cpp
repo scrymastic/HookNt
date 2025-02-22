@@ -152,7 +152,7 @@ int printfN(const char* format, ...) {
 
         // If gp_vprintf is still not set, print an error and return
         if (!gp_vprintf) {
-            printf("vprintf not found\n");
+            // printf("vprintf not found\n");
             return 0;
         }
     }
