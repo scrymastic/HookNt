@@ -52,7 +52,7 @@ When the process makes NT system calls, they are intercepted by the hooked funct
 - Call the original NT function via syscall
 - Allow monitoring of low-level system operations
 
-This provides visibility into NT API usage at the earliest stages of process execution, before higher-level Windows APIs are involved.
+This provides visibility into NT API usage at very early stages of process execution, before higher-level Windows APIs are involved.
 
 ## Usage
 
@@ -76,6 +76,7 @@ hookNt.exe test.exe NtWriteFile NtCreateFile
 - Currently only supports x64 architecture
 - Target process must have a console window/terminal
 - Output formatting may be inconsistent in some cases and needs refinement
+- Windows syscall numbers may vary between different OS versions, which could cause compatibility issues
 
 ## License
 
