@@ -12,71 +12,80 @@ A Windows NT API hooking tool for intercepting and monitoring system calls
 
 </div>
 
-This project is a demonstration of API hooking, specifically targeting NT functions on the Windows operating system.
+## Overview
+
+HookNt is a powerful tool for intercepting and monitoring Windows NT API calls. It uses a combination of DLL injection and function hooking techniques to provide visibility into low-level system operations.
+
+## How It Works
+
+![How It Works](./imgs/image-3.png)
 
 ## Components
 
-### ntdllN
+### ntdllN.dll
+- Provides hooked versions of NT functions
+- Logs parameters and return values
+- Uses trampoline-based hooking
+- Maintains original function behavior
 
-- **Type**: Dynamic Link Library (DLL)
-- **Purpose**: Provides hooked versions of NT functions such as `NtCreateFile`, `NtReadFile`, and `NtWriteFile`.
-- **Key Files**:
-  - `ntdllN.cpp`: Defines the exported functions for the DLL.
-  - `syscall.asm`: Contains assembly code for system call interception.
-
-### hookNt
-
-- **Type**: Application
-- **Purpose**: Injects the `ntdllN` DLL into a target process and patches NT functions to redirect calls to the hooked versions.
-- **Key Files**:
-  - `hookNt.cpp`: Contains the main logic for process creation, DLL injection, and function patching.
-
-## Features
-
-- **Reflective DLL Injection**: The application can inject the `ntdllN` DLL into a target process using reflective DLL injection techniques.
-- **Function Hooking**: The project hooks NT functions by patching the original function to jump to the hooked version.
-- **Custom Logging**: The hooked functions log their parameters and return values for monitoring purposes.
-
-## How it works
-
-The `hookNt` application works by:
-
-1. Creating a target process in a suspended state
-2. Injecting the `ntdllN` DLL into the process memory
-3. Patching the original NT functions to redirect to the hooked versions
-4. Resuming the process execution
-
-When the process makes NT system calls, they are intercepted by the hooked functions in `ntdllN`. These hooked functions:
-
-- Log all input parameters and return values
-- Call the original NT function via syscall
-- Allow monitoring of low-level system operations
-
-This provides visibility into NT API usage at very early stages of process execution, before higher-level Windows APIs are involved.
+### hookNt.exe
+- Creates target process
+- Injects ntdllN.dll
+- Patches NT functions
+- Manages trampoline memory
 
 ## Usage
 
-1. **Build the Project**: Compile both the `ntdllN` DLL and the `hookNt` application using Visual Studio.
-2. **Run the Application**: Execute `hookNt.exe` with the target program and a list of NT functions to hook as command-line arguments.
+1. **Build the Project**:
+  Build the project using Visual Studio
 
-   ```bash
-   hookNt.exe <target_program> <nt_function1> <nt_function2> ...
-   ```
+2. **Run the Application**:
+  ```bash
+  hookNt.exe <target_program> <nt_function1> <nt_function2> ...
+  ```
 
-3. **Monitor Output**: The application will log the hooking process and the parameters of the hooked functions.
+## Extending NT Functions
+
+The project comes with a few predefined NT functions (`NtCreateFile`, `NtReadFile`, `NtWriteFile`), but you can easily add more:
+
+1. Add the function declaration in `ntdllN.h`:
+  ```cpp
+  extern "C" __declspec(dllexport) NTSTATUS NtNewFunctionN(/* parameters */);
+  ```
+
+2. Add the trampoline variable in `ntdllN.cpp`:
+  ```cpp
+  extern "C" __declspec(dllexport) PVOID NtNewFunctionTrampoline = nullptr;
+  ```
+
+3. Implement the hooked function in `ntdllN.cpp`:
+  ```cpp
+  extern "C" __declspec(dllexport) NTSTATUS NtNewFunctionN(/* parameters */) {
+      Logger::printfN("\n[*] NtNewFunction\n");
+      // Log parameters
+      // Call original via trampoline
+      // Log result
+      return result;
+  }
+  ```
 
 ## Example
 
 ```bash
-hookNt.exe test.exe NtWriteFile NtCreateFile
+hookNt.exe test.exe NtWriteFile NtCreateFile NtReadFile
 ```
-![Example output showing hooked NtWriteFile calls](./imgs/image-1.png)
 
-### Limitations
+![Example](./imgs/image-1.png)
+![Example](./imgs/image-2.png)
+
+Output will show:
+- Process creation and injection status
+- Function hooking details
+- Parameters and return values of hooked functions
+
+## Limitations
 - Currently only supports x64 architecture
 - Target process must have a console window/terminal
-- Output formatting may be inconsistent in some cases and needs refinement
-- Windows syscall numbers may vary between different OS versions, which could cause compatibility issues
 
 ## License
 
