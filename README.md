@@ -14,7 +14,7 @@ A Windows NT API hooking tool for intercepting and monitoring system calls
 
 ## Overview
 
-HookNt is a powerful tool for intercepting and monitoring Windows NT API calls. It uses a combination of DLL injection and function hooking techniques to provide visibility into low-level system operations.
+HookNt is a tool for intercepting and monitoring Windows NT API calls. It uses a combination of DLL injection and function hooking techniques to provide visibility into low-level system operations.
 
 ## How It Works
 
@@ -48,17 +48,12 @@ HookNt is a powerful tool for intercepting and monitoring Windows NT API calls. 
 
 The project comes with a few predefined NT functions (`NtCreateFile`, `NtReadFile`, `NtWriteFile`), but you can easily add more:
 
-1. Add the function declaration in `ntdllN.h`:
-  ```cpp
-  extern "C" __declspec(dllexport) NTSTATUS NtNewFunctionN(/* parameters */);
-  ```
-
-2. Add the trampoline variable in `ntdllN.cpp`:
+1. Add the trampoline variable in `ntdllN.cpp`:
   ```cpp
   extern "C" __declspec(dllexport) PVOID NtNewFunctionTrampoline = nullptr;
   ```
 
-3. Implement the hooked function in `ntdllN.cpp`:
+2. Implement the hooked function in `ntdllN.cpp`:
   ```cpp
   extern "C" __declspec(dllexport) NTSTATUS NtNewFunctionN(/* parameters */) {
       Logger::printfN("\n[*] NtNewFunction\n");
