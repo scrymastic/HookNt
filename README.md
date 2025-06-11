@@ -152,7 +152,7 @@ But you can easily add new functions by following these steps:
 
 1. **Add trampoline variable:**
    ```cpp
-   extern "C" NTDLLN_API PVOID NtNewFunctionTrampoline = nullptr;
+   extern "C" __declspec(dllexport) PVOID NtNewFunctionTrampoline = nullptr;
    ```
 
 2. **Implement hook:**
