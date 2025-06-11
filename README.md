@@ -157,7 +157,7 @@ But you can easily add new functions by following these steps:
 
 2. **Implement hook:**
    ```cpp
-   extern "C" NTDLLN_API NTSTATUS NTAPI NtNewFunctionN(...) {
+   extern "C" __declspec(dllexport) NTSTATUS NTAPI NtNewFunctionN(...) {
        printfN("\n[*] NtNewFunction\n");
        // Log parameters
        
