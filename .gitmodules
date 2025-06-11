@@ -1,0 +1,3 @@
+[submodule "libs/distorm"]
+	path = libs/distorm
+	url = https://github.com/gdabah/distorm
