@@ -28,8 +28,6 @@ target_link_libraries(hooknt PRIVATE
 # Link distorm if available
 if(TARGET distorm)
     target_link_libraries(hooknt PRIVATE distorm)
-else()
-    message(WARNING "DiStorm not available - please clone the distorm library to the libs/distorm/ directory")
 endif()
 
 # Include directories

@@ -1,4 +1,9 @@
 # DiStorm library configuration
+if(NOT EXISTS ${CMAKE_CURRENT_SOURCE_DIR}/libs/distorm/src)
+    message(WARNING "DiStorm library not found at libs/distorm/src. Please clone DiStorm to libs/distorm/")
+    return()
+endif()
+
 file(GLOB_RECURSE DISTORM_SOURCES 
     "${CMAKE_CURRENT_SOURCE_DIR}/libs/distorm/src/*.c"
 )

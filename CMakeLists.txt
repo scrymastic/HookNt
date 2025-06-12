@@ -19,11 +19,7 @@ else()
 endif()
 
 # Configure DiStorm
-if(EXISTS ${CMAKE_CURRENT_SOURCE_DIR}/libs/distorm/src)
-    include(${CMAKE_CURRENT_SOURCE_DIR}/cmake/distorm.cmake)
-else()
-    message(WARNING "DiStorm library not found at libs/distorm/src. Please clone DiStorm to libs/distorm/")
-endif()
+include(${CMAKE_CURRENT_SOURCE_DIR}/cmake/distorm.cmake)
 
 add_subdirectory(src/hooknt)
 add_subdirectory(src/ntdlln)
