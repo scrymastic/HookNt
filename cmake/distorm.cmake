@@ -1,22 +1,19 @@
 # DiStorm library configuration
-set(DISTORM_SOURCES_DIR ${CMAKE_CURRENT_SOURCE_DIR}/libs/distorm)
-
-# Gather source files
 file(GLOB_RECURSE DISTORM_SOURCES 
-    "${DISTORM_SOURCES_DIR}/src/*.c"
+    "${CMAKE_CURRENT_SOURCE_DIR}/libs/distorm/src/*.c"
 )
 
 file(GLOB_RECURSE DISTORM_HEADERS
-    "${DISTORM_SOURCES_DIR}/include/*.h"
-    "${DISTORM_SOURCES_DIR}/src/*.h"
+    "${CMAKE_CURRENT_SOURCE_DIR}/libs/distorm/include/*.h"
+    "${CMAKE_CURRENT_SOURCE_DIR}/libs/distorm/src/*.h"
 )
 
 add_library(distorm STATIC ${DISTORM_SOURCES} ${DISTORM_HEADERS})
 
 # Set include directories
 target_include_directories(distorm PUBLIC
-    ${DISTORM_SOURCES_DIR}/include
-    ${DISTORM_SOURCES_DIR}/src
+    ${CMAKE_CURRENT_SOURCE_DIR}/libs/distorm/include
+    ${CMAKE_CURRENT_SOURCE_DIR}/libs/distorm/src
 )
 
 # Set compiler definitions for distorm

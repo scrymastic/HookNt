@@ -1,8 +1,5 @@
 cmake_minimum_required(VERSION 3.20)
-project(hooknt)
-
-# Include DiStorm configuration
-include(cmake/distorm.cmake)
+project(hookNt VERSION 1.0.0 LANGUAGES C CXX)
 
 # Set C++ standard
 set(CMAKE_CXX_STANDARD 17)
@@ -21,8 +18,15 @@ else()
     add_compile_options(-Wall -Wextra -Wpedantic)
 endif()
 
-# Add subdirectories
-add_subdirectory(src)
+# Configure DiStorm
+if(EXISTS ${CMAKE_CURRENT_SOURCE_DIR}/libs/distorm/src)
+    include(${CMAKE_CURRENT_SOURCE_DIR}/cmake/distorm.cmake)
+else()
+    message(WARNING "DiStorm library not found at libs/distorm/src. Please clone DiStorm to libs/distorm/")
+endif()
+
+add_subdirectory(src/hooknt)
+add_subdirectory(src/ntdlln)
 
 # Set startup project for Visual Studio
 set_property(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR} PROPERTY VS_STARTUP_PROJECT hooknt) 
