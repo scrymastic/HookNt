@@ -18,30 +18,30 @@ HookNt enables you to intercept and monitor NT system calls by hooking functions
 
 ```
 srcn/
-├── CMakeLists.txt             # Main CMake configuration
-├── build.cmd                  # Windows build script
-├── include/                   # Public headers
-│   ├── common.h               # Shared definitions and types
-│   ├── hook_manager.h         # Hook management interface
-│   ├── process_manager.h      # Process management interface
-│   ├── memory_utils.h         # Memory utility functions
-│   ├── ntdlln.h               # DLL exports and NT function declarations
-│   ├── module_resolver.h      # Module resolution interface
-│   ├── function_resolver.h    # Function resolution interface
-│   └── logger.h               # Logging interface
+├── CMakeLists.txt                 # Main CMake configuration
+├── build.bat                      # Windows build script
 ├── src/
-│   ├── hooknt/                # Main executable
-│   │   ├── main.cpp           # Application entry point
+│   ├── include/                   # Public headers
+│   │   ├── common.h               # Shared definitions and types
+│   │   ├── hook_manager.h         # Hook management interface
+│   │   ├── process_manager.h      # Process management interface
+│   │   ├── memory_utils.h         # Memory utility functions
+│   │   ├── ntdlln.h               # DLL exports and NT function declarations
+│   │   ├── module_resolver.h      # Module resolution interface
+│   │   ├── function_resolver.h    # Function resolution interface
+│   │   └── logger.h               # Logging interface
+│   ├── hooknt/                    # Main executable
+│   │   ├── main.cpp               # Application entry point
 │   │   ├── process_manager.cpp
 │   │   ├── hook_manager.cpp
 │   │   └── memory_utils.cpp
-│   └── ntdlln/                # Hook DLL
-│       ├── dllmain.cpp        # DLL entry point
-│       ├── ntdlln.cpp         # NT function hooks
+│   └── ntdlln/                    # Hook DLL
+│       ├── dllmain.cpp            # DLL entry point
+│       ├── ntdlln.cpp             # NT function hooks
 │       ├── module_resolver.cpp
 │       ├── function_resolver.cpp
 │       └── logger.cpp
-└── libs/distorm/              # DiStorm integration
+└── libs/distorm/                  # DiStorm integration
 ```
 
 ## Building
